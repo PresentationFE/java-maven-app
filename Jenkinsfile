@@ -7,7 +7,9 @@ pipeline {
         stage('Build') {
             steps {
                 sh '/opt/apache-maven-3.9.11/bin/mvn dependency:tree'
-                sh '/opt/apache-maven-3.9.11/bin/mvn -B -DskipTests clean package'
+                sh '''
+                /opt/apache-maven-3.9.11/bin/mvn -B -DskipTests clean package
+                '''
             }
         }
         stage('Test') {

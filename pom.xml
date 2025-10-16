@@ -33,39 +33,22 @@
     </pluginManagement>
     <plugins>
       <plugin>
-        <!-- Build an executable JAR -->
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.4.2</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>com.mycompany.app.App</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.6.2</version>
+        <!-- https://maven.apache.org/plugins/maven-dependency-plugin/plugin-info.html -->
+        <artifactId>maven-dependency-plugin</artifactId>
+        <!-- <version>2.10</version> -->
         <executions>
           <execution>
-            <id>enforce-maven</id>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
             <goals>
-              <goal>enforce</goal>
+              <goal>copy-dependencies</goal>
             </goals>
             <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>[3.9.9,)</version>
-                </requireMavenVersion>
-                <requireJavaVersion>
-                  <version>[21,)</version>
-                </requireJavaVersion>
-              </rules>
+              <outputDirectory>export</outputDirectory>
+              <!-- 将依赖包放入export文件夹 -->
+              <excludeTransitive>false</excludeTransitive>
+              <stripVersion>true</stripVersion>
             </configuration>
           </execution>
         </executions>
